@@ -1,59 +1,236 @@
 /*
- * Copyright (c) 2020 The ZMK Contributors
  *
- * SPDX-License-Identifier: MIT
+ * By Matt Galligan (https://github.com/galligan)
+ *
  */
+
+#define BASE 0
+#define LOWER 1
+#define RAISE 2
+#define ADJ 3
+#define NAV 4
+#define MGMT 5
 
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
+#include "../config/keypos_42keys.h"
+
+#define ___ &trans
+#define XXX &none
+
+// Combos
+
+#undef COMBO_TERM
+#define COMBO_TERM 40  // timeout of 40ms (default is 30ms if omitted)
+ZMK_COMBO(combo_copy,   &kp LGUI(C),  LB2 LB3, ALL)  // Cmd + C, active on all layers
+ZMK_COMBO(combo_cut,    &kp LGUI(X),  LB3 LB4, ALL)  // Cmd + X, active on all layers
+ZMK_COMBO(combo_paste,  &kp LGUI(V),  LB1 LB2, ALL)  // Cmd + V, active on all layers
+
+/*
+   Custom Key Codes
+*/
+
+// Key Combos
+#define MEH_KEY LS(LA(LC))
+#define MEH(key) (LS(LA(LC(key))))
+#define HYPER LG(MEH)
+#define HYP(key) (LG(LS(LA(LC(key)))))
+
+// Cursor Placement
+#define W_LEFT LA(LEFT)
+#define W_RIGHT LA(RIGHT)
+#define L_START LG(LEFT)
+#define L_END LG(RIGHT)
+
+// Editing
+#define BSPC_W LA(BSPC)
+
+// Tab Navigation
+#define T_NEXT LC(TAB)
+#define T_PREV LS(LC(TAB))
+
+// History Navigation
+#define H_NEXT LG(RBKT)
+#define H_PREV LG(LBKT)
+
+// App Navigation
+#define A_PREV LG(TAB)
+#define A_FULL LA(TAB)
+
+// Window Management
+#define WM_MCTRL LC(UP)
+#define WM_STAGE HYP(M)
+#define WM_FOCUS HYP(H)
+#define WM_WIN_L HYP(W)
+#define WM_WIN_R HYP(R)
+#define WM_WIN_X HYP(E)
+#define WM_WIN_H HYP(D)
+#define WM_SN_L HYP(S)
+#define WM_SN_R HYP(F)
+#define WM_ST_L MEH(F9)
+#define WM_ST_D MEH(F10)
+#define WM_ST_R MEH(F11)
+#define WM_ST_UN MEH(F12)
+#define WM_3RD MEH(F16)
+#define WM_4TH MEH(F17)
+#define WM_GROW HYP(F11) 
+#define WM_SHRK HYP(F12)
+#define WM_NG_L HYP(F16)
+#define WM_NG_R HYP(F17)
+#define WM_NG_U HYP(F18)
+#define WM_NG_D HYP(F19)
+
+// MacOS
+#define MAC_DND F16
+#define MAC_DICT F17
+#define MAC_SPOT F18
+
+// MISC
+#define SEL_ALL LG(A)
+#define UNDO LG(Z)
+
+// Homerow Mods
+
+ZMK_BEHAVIOR(hrm, hold_tap,
+)
 
 / {
-        keymap {
-                compatible = "zmk,keymap";
+  behaviors {
+    hrm: home_row_mods {
+      compatible = "zmk,behavior-hold-tap";
+      label = "HOME_ROW_MODS"
+      #binding-cells = <2>;
+      flavor = "balanced";
+      tapping-term-ms = <280>;
+      quick-tap-ms = <125>;
+      global-quick-tap;
+      bindings = <&kp>, <&kp>;
+    };
+    /* ALT HOME ROW MODS
+    hrm: home_row_mods {
+      compatible = "zmk,behavior-hold-tap";
+      label = "HOME_ROW_MODS"
+      #binding-cells = <2>;
+      flavor = "tap-preferred";
+      tapping-term-ms = <280>;
+      quick-tap-ms = <0>;
+      bindings = <&kp>, <&kp>;
+    };
+    */
+    bspc_del: backspace_delete {
+      compatible = "zmk,behavior-mod-morph";
+      label = "BACKSPACE_DELETE";
+      #binding-cells = <0>;
+      bindings = <&kp BACKSPACE>, <&kp DELETE>;
+      mods = <(MOD_LSFT|MOD_RSFT)>;
+      keep-mods = <(MOD_RSFT)>;
+    };
+    hyphen: tap_dance_0 {
+      compatible = "zmk,behavior-tap-dance";
+      label = "HYPHEN_TAP_DANCE";
+      #binding-cells = <0>;
+      tapping-term-ms = <200>;
+      bindings = <&kp MINUS>, <&kp LA(MINUS)>, <&kp LSHFT(LA(MINUS))>;
+    };
+    bt_switch: tap_dance_1 {
+      compatible = "zmk,behavior-tap-dance";
+      label = "BT_SWITCH";
+      #binding-cells = <0>;
+      tapping-term-ms = <200>;
+      bindings = <&bt BT_SEL 1>, <&bt BT_SEL 2>, <&bt BT_SEL 3>;
+    };
+    capture: tap_dance_2 {
+      compatible = "zmk,behavior-tap-dance";
+      label = "CLEANSHOT_CAPTURE";
+      #binding-cells = <0>;
+      tapping-term-ms = <200>;
+      bindings = <&kp LG(LS(N4))>, <&kp LG(LS(N3))>, <&kp LG(LS(N6))>;
+    };
+    ha_ctrl: home_assistant_control {
+      compatible = "zmk,behavior-tap-dance";
+      label = "HOME_ASSISTANT_CONTROL";
+      #binding-cells = <0>;
+      tapping-term-ms = <200>;
+      bindings = <&kp MEH(B)>, <&kp MEH(C)>, <&kp MEH(X)>;
+    };
+  };
+}
 
-                default_layer {
-// -----------------------------------------------------------------------------------------
-// |  TAB |  Q  |  W  |  E  |  R  |  T  |   |  Y  |  U   |  I  |  O  |  P  | BKSP |
-// | CTRL |  A  |  S  |  D  |  F  |  G  |   |  H  |  J   |  K  |  L  |  ;  |  '   |
-// | SHFT |  Z  |  X  |  C  |  V  |  B  |   |  N  |  M   |  ,  |  .  |  /  | ESC  |
-//                    | GUI | LWR | SPC |   | ENT | RSE  | ALT |
-                        label = "Base";
-                        bindings = <
-   &kp TAB   &kp Q &kp W &kp E &kp R &kp T   &kp Y &kp U  &kp I     &kp O   &kp P    &kp BSPC
-   &kp LCTRL &kp A &kp S &kp D &kp F &kp G   &kp H &kp J  &kp K     &kp L   &kp SEMI &kp SQT
-   &kp LSHFT &kp Z &kp X &kp C &kp V &kp B   &kp N &kp M  &kp COMMA &kp DOT &kp FSLH &kp ESC
-                  &kp LGUI &mo 1 &kp SPACE   &kp RET &mo 2 &kp RALT
-                        >;
-                };
-                lower_layer {
-// -----------------------------------------------------------------------------------------
-// |  TAB |  1  |  2  |  3  |  4  |  5  |   |  6  |  7  |  8  |  9  |  0  | BKSP |
-// | BTCLR| BT1 | BT2 | BT3 | BT4 | BT5 |   | LFT | DWN |  UP | RGT |     |      |
-// | SHFT |     |     |     |     |     |   |     |     |     |     |     |      |
-//                    | GUI |     | SPC |   | ENT |     | ALT |
-                        label = "Lower";
-                        bindings = <
-   &kp TAB    &kp N1       &kp N2       &kp N3       &kp N4       &kp N5         &kp N6   &kp N7   &kp N8 &kp N9    &kp N0 &kp BSPC
-   &bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4   &kp LEFT &kp DOWN &kp UP &kp RIGHT &trans &trans
-   &kp LSHFT  &trans       &trans       &trans       &trans       &trans         &trans   &trans   &trans &trans    &trans &trans
-                          	        &kp LGUI     &trans       &kp SPACE      &kp RET  &trans   &kp RALT
-                        >;
-                };
+/ {
+  keymap {
+    compatible = "zmk,keymap";
 
-                raise_layer {
-// -----------------------------------------------------------------------------------------
-// |  TAB |  !  |  @  |  #  |  $  |  %  |   |  ^  |  &  |  *  |  (  |  )  | BKSP |
-// | CTRL |     |     |     |     |     |   |  -  |  =  |  [  |  ]  |  \  |  `   |
-// | SHFT |     |     |     |     |     |   |  _  |  +  |  {  |  }  | "|" |  ~   |
-//                    | GUI |     | SPC |   | ENT |     | ALT |
-                        label = "Raise";
-                        bindings = <
-   &kp  TAB  &kp EXCL &kp AT &kp HASH &kp DLLR &kp PRCNT   &kp CARET &kp AMPS  &kp KP_MULTIPLY &kp LPAR &kp RPAR &kp BSPC
-   &kp LCTRL &trans   &trans &trans   &trans   &trans      &kp MINUS &kp EQUAL &kp LBKT        &kp RBKT &kp BSLH &kp GRAVE
-   &kp LSHFT &trans   &trans &trans   &trans   &trans      &kp UNDER &kp PLUS  &kp LBRC        &kp RBRC &kp PIPE &kp TILDE
-                    	     &kp LGUI &trans   &kp SPACE   &kp RET   &trans    &kp RALT
-                        >;
-                };
-        };
+    default_layer {
+      label = "Base";
+      bindings = <
+        // ╭─DEFAULT─────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
+             &kp TAB       &kp Q         &kp W         &kp E         &kp R         &kp T             &kp Y         &kp U         &kp I         &kp O         &kp P         &bspc_del
+             &kp ESC       &hrm LGUI A   &hrm LSHFT S  &hrm LALT D   &hrm LCTRL F  &hrm HYPER G      &hrm HYPER H  &hrm RCTRL J  &hrm RALT K   &hrm RSHFT L &hrm RGUI SEMI &kp SQT
+             &kp LSHFT     &kp Z         &kp X         &kp C         &kp V         &kp B             &kp N         &kp M         &kp COMMA     &kp DOT       &kp FSLH      &kp RET
+        // ╰─────────────┴─────────────┴─────────────╮                                                                                       ╭─────────────┴─────────────┴─────────────╯
+                                                       &kp MGMT      &mo LOWER     &mo NAV           &kp SPC       &mo RAISE     &kp RALT
+        //                                           ╰─────────────┴─────────────┴─────────────╯   ╰─────────────┴─────────────┴─────────────╯
+      >;
+    };
+    lower_layer {
+      label = "Lower";
+      bindings = <
+        // ╭─LOWER───────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
+             &kp A_PREV   &kp N1        &kp N2        &kp N3        &kp N4        &kp N5            &kp N6        &kp N7        &kp N8        &kp N9        &kp N0        ___
+             &kp SEL_ALL  &kp N6        &kp N7        &kp N8        &kp N9        &kp N0            ___           ___           ___           ___           ___           ___           
+             ___          &kp UNDO      ___           &capture      ___           &ha_ctrl          ___           ___           ___           ___           ___           ___           
+        // ╰─────────────┴─────────────┴─────────────╮                                                                                       ╭─────────────┴─────────────┴─────────────╯
+                                                       ___           ___           ___               ___           &mo ADJUST    ___
+        //                                           ╰─────────────┴─────────────┴─────────────╯   ╰─────────────┴─────────────┴─────────────╯
+      >;
+    };
+    raise_layer {
+      label = "Raise";
+      bindings = <
+        // ╭─RAISE───────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
+             ___           &kp EXCL      &kp AT        &kp HASH      &kp DLLR      &kp PRCNT         &kp CARET     &kp AMPS      &kp ASTRK     &kp LPAR      &kp RPAR      ___
+             ___           ___           ___           ___           ___           ___               &kp PIPE      &hyphen       &kp EQUAL     &kp LBKT      &kp RBKT      &kp GRAVE
+             ___           ___           ___           ___           ___           ___               &kp BLSH      &kp UNDER     &kp PLUS      &kp LBRC      &kp RBRC      &kp TILDE
+        // ╰─────────────┴─────────────┴─────────────╮                                                                                       ╭─────────────┴─────────────┴─────────────╯
+                                                       ___           &mo ADJUST    ___               ___           ___           ___
+        //                                           ╰─────────────┴─────────────┴─────────────╯   ╰─────────────┴─────────────┴─────────────╯
+      >;
+    };
+    adjust_layer {
+      label = "Adjust";
+      bindings = <
+        // ╭─ADJUST──────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
+             &kp C_BRI_UP  &kp C_BRI_DN  &kp WM_MCTRL  &kp MAC_SPOT  &kp MAC_DICT  &kp MAC_DND       ___           &kp C_MUTE    &kp C_VOL_UP  &kp C_VOL_UP  ___           ___
+             &kp F1        &kp F2        &kp F3        &kp F4        &kp F5        &kp F6            &bt BT_CLR    &kp C_PREV    &kp C_PP      &kp C_NEXT    ___           ___
+             &kp F7        &kp F8        &kp F9        &kp F10       &kp F11       &kp F12           &bt_switch     ___           ___           ___           ___           ___
+        // ╰─────────────┴─────────────┴─────────────╮                                                                                       ╭─────────────┴─────────────┴─────────────╯
+                                                       ___           ___           ___               ___           ___           ___
+        //                                           ╰─────────────┴─────────────┴─────────────╯   ╰─────────────┴─────────────┴─────────────╯
+      >;
+    nav_layer {
+      label = "Nav";
+      bindings = <
+        // ╭─NAV─────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
+             &kp LA(TAB)   &kp L_START  &kp W_END      &kp UP        &kp W_RIGHT   &kp L_END          ___           ___           ___           ___           ___           ___
+             &kp BSPC      &kp BSPC_W   &kp LEFT       &kp DOWN      &kp RIGHT     &kp DELETE         ___           ___           ___           ___           ___           ___
+            ___            &kp H_PREV   &kp H_NEXT     &kp T_PREV    &kp T_NEXT    &kp RET            ___           ___           ___           ___           ___           ___,
+        // ╰─────────────┴─────────────┴─────────────╮                                                                                       ╭─────────────┴─────────────┴─────────────╯
+                                                       ___           ___           ___               &mo MGMT      ___           ___
+        //                                           ╰─────────────┴─────────────┴─────────────╯   ╰─────────────┴─────────────┴─────────────╯
+      >;
+    };
+    mgmt_layer {
+      label = "Window Management";
+      bindings = <
+        // ╭─MGMT────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
+             ___           ___           &kp WM_WIN_L  &kp WM_WIN_X  &kp WM_WIN_R  &kp WM_4TH        ___           &kp WM_SHR    &kp WM_NG_U   &kp WM_GROW   ___           ___
+             ___           &kp WM_FOCUS  &kp WM_SN_L   &kp WM_WIN_H  &kp WM_SN_R   &kp WM_3RD        ___           &kp WM_NG_L   &kp WM_NG_D   &kp WM_NG_R   ___           ___
+             ___           ___           &kp WM_ST_L   &kp WM_ST_D   &kp WM_ST_R   &kp WM_ST_UN      ___           &kp WM_STAGE  ___           ___           ___           ___
+        // ╰─────────────┴─────────────┴─────────────╮                                                                                       ╭─────────────┴─────────────┴─────────────╯
+                                                       ___           ___           ___               ___           ___           ___
+        //                                           ╰─────────────┴─────────────┴─────────────╯   ╰─────────────┴─────────────┴─────────────╯
+      >;
+    };
+  }
 };
