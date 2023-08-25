@@ -172,7 +172,7 @@
              &kp ESC       &hm LGUI A    &hm LSHFT S   &hm LALT D    &hm LCTRL F   &kp G             &kp H         &hm RCTRL J   &hm RALT K    &hm RSHFT L   &hm RGUI SEMI &kp SQT
              &kp LSHFT     &kp Z         &kp X         &kp C         &kp V         &kp B             &kp N         &kp M         &kp COMMA     &kp DOT       &kp FSLH      &kp RET
         // ╰─────────────┴─────────────┴─────────────╮                                                                                       ╭─────────────┴─────────────┴─────────────╯
-                                                       &kp MGMT      &mo LOWER     &mo NAV           &kp SPC       &mo RAISE     &kp RALT
+                                                       &mo MGMT      &mo LOWER     &mo NAV           &kp SPC       &mo RAISE     &kp RALT
         //                                           ╰─────────────┴─────────────┴─────────────╯   ╰─────────────┴─────────────┴─────────────╯
       >;
     };
