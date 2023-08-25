@@ -24,9 +24,9 @@
 */
 
 // Key Combos
-#define MEH_KEY LS(LA(LC))
+#define MEH_KEY LS(LA(LCTRL))
 #define MEH(key) (LS(LA(LC(key))))
-#define HYPER LG(MEH)
+#define HYPER LG(MEH_KEY)
 #define HYP(key) (LG(LS(LA(LC(key)))))
 
 // Editing
@@ -34,7 +34,7 @@
 
 // Tab Navigation
 #define T_NEXT LC(TAB)
-#define T_PREV (LS(LC(TAB)))
+#define T_PREV LS(LC(TAB))
 
 // History Navigation
 #define H_NEXT LG(RBKT)
