@@ -29,12 +29,6 @@
 #define HYPER LG(MEH)
 #define HYP(key) (LG(LS(LA(LC(key)))))
 
-// Cursor Placement
-#define W_LEFT LA(LEFT)
-#define W_RIGHT LA(RIGHT)
-#define L_START LG(LEFT)
-#define L_END LG(RIGHT)
-
 // Editing
 #define BSPC_W LA(BSPC)
 
@@ -114,21 +108,21 @@
       mods = <(MOD_LSFT|MOD_RSFT)>;
       keep-mods = <(MOD_RSFT)>;
     };
-    hyphen: tap_dance_0 {
+    hyphen: hyphen_tap_dance {
       compatible = "zmk,behavior-tap-dance";
       label = "HYPHEN_TAP_DANCE";
       #binding-cells = <0>;
       tapping-term-ms = <200>;
       bindings = <&kp MINUS>, <&kp LA(MINUS)>, <&kp LS(LA(MINUS))>;
     };
-    bt_switch: tap_dance_1 {
+    dev_switch: bluetooth_dev_switch {
       compatible = "zmk,behavior-tap-dance";
-      label = "BT_SWITCH";
+      label = "BLUETOOTH_DEVICE_SWITCH";
       #binding-cells = <0>;
       tapping-term-ms = <200>;
-      bindings = <&bt BT_SEL 1>, <&bt BT_SEL 2>, <&bt BT_SEL 3>;
+      bindings = <&bt BT_SEL 0>, <&bt BT_SEL 1>, <&bt BT_SEL 2>;
     };
-    capture: tap_dance_2 {
+    capture: cleanshot_capture {
       compatible = "zmk,behavior-tap-dance";
       label = "CLEANSHOT_CAPTURE";
       #binding-cells = <0>;
@@ -212,7 +206,7 @@
         // ╭─ADJUST──────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
              &kp C_BRI_UP  &kp C_BRI_DN  &kp WM_MCTRL  &kp MAC_SPOT  &kp MAC_DICT  &kp MAC_DND       ___           &kp C_MUTE    &kp C_VOL_UP  &kp C_VOL_UP  ___           ___
              &kp F1        &kp F2        &kp F3        &kp F4        &kp F5        &kp F6            &bt BT_CLR    &kp C_PREV    &kp C_PP      &kp C_NEXT    ___           ___
-             &kp F7        &kp F8        &kp F9        &kp F10       &kp F11       &kp F12           &bt_switch     ___           ___           ___           ___           ___
+             &kp F7        &kp F8        &kp F9        &kp F10       &kp F11       &kp F12           &dev_switch   ___           ___           ___           ___           ___
         // ╰─────────────┴─────────────┴─────────────╮                                                                                       ╭─────────────┴─────────────┴─────────────╯
                                                        ___           ___           ___               ___           ___           ___
         //                                           ╰─────────────┴─────────────┴─────────────╯   ╰─────────────┴─────────────┴─────────────╯
@@ -221,7 +215,7 @@
       label = "Nav";
       bindings = <
         // ╭─NAV─────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
-             &kp LA(TAB)   &kp L_START  &kp W_END      &kp UP        &kp W_RIGHT   &kp L_END          ___           ___           ___           ___           ___           ___
+             &kp LA(TAB)   &kp LG(LEFT) &kp LA(LEFT)   &kp UP        &kp LA(RIGHT) &kp LG(RIGHT)      ___           ___           ___           ___           ___           ___
              &kp BSPC      &kp BSPC_W   &kp LEFT       &kp DOWN      &kp RIGHT     &kp DELETE         ___           ___           ___           ___           ___           ___
             ___            &kp H_PREV   &kp H_NEXT     &kp T_PREV    &kp T_NEXT    &kp RET            ___           ___           ___           ___           ___           ___,
         // ╰─────────────┴─────────────┴─────────────╮                                                                                       ╭─────────────┴─────────────┴─────────────╯
