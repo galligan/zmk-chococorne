@@ -85,7 +85,7 @@
 // Homerow Mods
 / {
   behaviors {
-    hrm: home_row_mods {
+    hm: home_row_mods {
       compatible = "zmk,behavior-hold-tap";
       label = "HOME_ROW_MODS";
       #binding-cells = <2>;
@@ -96,7 +96,7 @@
       bindings = <&kp>, <&kp>;
     };
     /* ALT HOME ROW MODS
-    hrm: home_row_mods {
+    hm: home_row_mods {
       compatible = "zmk,behavior-hold-tap";
       label = "HOME_ROW_MODS";
       #binding-cells = <2>;
@@ -175,7 +175,7 @@
       bindings = <
         // ╭─DEFAULT─────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
              &kp TAB       &kp Q         &kp W         &kp E         &kp R         &kp T             &kp Y         &kp U         &kp I         &kp O         &kp P         &bspc_del
-             &kp ESC       &hrm LGUI A   &hrm LSHFT S  &hrm LALT D   &hrm LCTRL F  &hrm HYPER G      &hrm HYPER H  &hrm RCTRL J  &hrm RALT K   &hrm RSHFT L &hrm RGUI SEMI &kp SQT
+             &kp ESC       &hm LGUI A    &hm LSHFT S   &hm LALT D    &hm LCTRL F   &kp G             &kp H         &hm RCTRL J   &hm RALT K    &hm RSHFT L   &hm RGUI SEMI &kp SQT
              &kp LSHFT     &kp Z         &kp X         &kp C         &kp V         &kp B             &kp N         &kp M         &kp COMMA     &kp DOT       &kp FSLH      &kp RET
         // ╰─────────────┴─────────────┴─────────────╮                                                                                       ╭─────────────┴─────────────┴─────────────╯
                                                        &kp MGMT      &mo LOWER     &mo NAV           &kp SPC       &mo RAISE     &kp RALT
