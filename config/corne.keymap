@@ -34,7 +34,7 @@
 
 // Tab Navigation
 #define T_NEXT LC(TAB)
-#define T_PREV LS(LC(TAB))
+#define T_PREV (LS(LC(TAB)))
 
 // History Navigation
 #define H_NEXT LG(RBKT)
