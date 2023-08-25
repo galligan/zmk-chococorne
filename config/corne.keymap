@@ -227,7 +227,7 @@
       label = "Window Management";
       bindings = <
         // ╭─MGMT────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
-             ___           ___           &kp WM_WIN_L  &kp WM_WIN_X  &kp WM_WIN_R  &kp WM_4TH        ___           &kp WM_SHR    &kp WM_NG_U   &kp WM_GROW   ___           ___
+             ___           ___           &kp WM_WIN_L  &kp WM_WIN_X  &kp WM_WIN_R  &kp WM_4TH        ___           &kp WM_SHRK   &kp WM_NG_U   &kp WM_GROW   ___           ___
              ___           &kp WM_FOCUS  &kp WM_SN_L   &kp WM_WIN_H  &kp WM_SN_R   &kp WM_3RD        ___           &kp WM_NG_L   &kp WM_NG_D   &kp WM_NG_R   ___           ___
              ___           ___           &kp WM_ST_L   &kp WM_ST_D   &kp WM_ST_R   &kp WM_ST_UN      ___           &kp WM_STAGE  ___           ___           ___           ___
         // ╰─────────────┴─────────────┴─────────────╮                                                                                       ╭─────────────┴─────────────┴─────────────╯
