@@ -290,7 +290,7 @@
       key-positions = <LM1 LM3>;
       bindings = <&kp LS(LG(N7))>;
     };
-  }
+  };
 };
 
 / {
