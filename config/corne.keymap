@@ -217,6 +217,7 @@
   };
 };
 
+// Combos
 / {
   combos {
     compatible = "zmk,combos";
