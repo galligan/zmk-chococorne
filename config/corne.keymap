@@ -135,15 +135,15 @@
 #define WM_NG_D  LG(LS(LA(LC(F19))))
 
 // Arc
-#define ARC_TAB_D  LA(LG(LC(UP)))
-#define ARC_TAB_U  LA(LG(LC(DOWN)))
-#define ARC_TAB_PR LS(LC(TAB))
-#define ARC_TAB_NX LC(TAB)
-#define ARC_SPC_L  LA(LG(LC(LEFT)))
-#define ARC_SPC_R  LA(LG(LC(RIGHT)))
-#define ARC_LIB    LG(LS(LC(L)))
-#define ARC_LIL    HYP(K)
-#define ARC_DEV    LG(I)
+#define C_TAB_D  LA(LG(LC(UP)))
+#define C_TAB_U  LA(LG(LC(DOWN)))
+#define C_TAB_PR LS(LC(TAB))
+#define C_TAB_NX LC(TAB)
+#define C_SPC_L  LA(LG(LC(LEFT)))
+#define C_SPC_R  LA(LG(LC(RIGHT)))
+#define C_LIB    LG(LS(LC(L)))
+#define C_LIL    HYP(K)
+#define C_DEV    LG(I)
 
 // MacOS
 #define MAC_DND  F16
@@ -374,9 +374,9 @@
       label = "Arc Shortcuts";
       bindings = <
         // ╭─MGMT────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
-             ___           ___           ___           ARC_TAB_U     ARC_LIB       ___               ___           ___           ___           ___           ___           ___
-             ___           ARC_LIL       ARC_TAB_PR    ARC_TAB_D     ARC_TAB_NX    ___               ___           ___           ___           ___           ___           ___
-             ___           ___           ARC_SPC_L     ___           ARC_SPC_R     ARC_DEV           ___           ___           ___           ___           ___           ___
+             ___           ___           ___           &kp C_TAB_U   &kp C_LIB     ___               ___           ___           ___           ___           ___           ___
+             ___           &kp C_LIL     &kp C_TAB_PR  &kp C_TAB_D   &kp C_TAB_NX  ___               ___           ___           ___           ___           ___           ___
+             ___           ___           &kp C_SPC_L   ___           &kp C_SPC_R   &kp C_DEV         ___           ___           ___           ___           ___           ___
         // ╰─────────────┴─────────────┴─────────────╮                                                                                       ╭─────────────┴─────────────┴─────────────╯
                                                        ___           ___           ___               ___           ___           ___
         //                                           ╰─────────────┴─────────────┴─────────────╯   ╰─────────────┴─────────────┴─────────────╯
