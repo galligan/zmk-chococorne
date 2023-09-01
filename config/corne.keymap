@@ -238,12 +238,12 @@
     };
     combo_copy_plus {
       timeout-ms = <40>;
-      key-positions = <LB2 LB3>;
+      key-positions = <LB2 LB4>;
       bindings = <&kp LS(LG(C))>;
     };
     combo_paste_plus {
       timeout-ms = <40>;
-      key-positions = <LB2 LB3>;
+      key-positions = <LB1 LB4>;
       bindings = <&kp LS(LG(V))>;
     };
     combo_undo {
