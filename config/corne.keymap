@@ -157,17 +157,17 @@
 // Homerow Mods
 / {
   behaviors {
-    hm: home_row_mods {
-      compatible = "zmk,behavior-hold-tap";
-      label = "HOME_ROW_MODS";
-      #binding-cells = <2>;
-      flavor = "balanced";
-      tapping-term-ms = <280>;
-      quick-tap-ms = <125>;
-      global-quick-tap;
-      bindings = <&kp>, <&kp>;
-    };
-    /* ALT HOME ROW MODS
+    // hm: home_row_mods {
+    //   compatible = "zmk,behavior-hold-tap";
+    //   label = "HOME_ROW_MODS";
+    //   #binding-cells = <2>;
+    //   flavor = "balanced";
+    //   tapping-term-ms = <280>;
+    //   quick-tap-ms = <125>;
+    //   global-quick-tap;
+    //   bindings = <&kp>, <&kp>;
+    // };
+    
     hm: home_row_mods {
       compatible = "zmk,behavior-hold-tap";
       label = "HOME_ROW_MODS";
@@ -175,9 +175,9 @@
       flavor = "tap-preferred";
       tapping-term-ms = <280>;
       quick-tap-ms = <0>;
+      global-quick-tap;
       bindings = <&kp>, <&kp>;
     };
-    */
     bspc_del: backspace_delete {
       compatible = "zmk,behavior-mod-morph";
       label = "BACKSPACE_DELETE";
